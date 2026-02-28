@@ -1,14 +1,14 @@
 # FlightOnTime – Backend
 
-## 📋 Descripción del Proyecto
+## Descripción del Proyecto
 
 **FlightOnTime** es una aplicación Back-End que predice si un vuelo viene atrasado o no. El sistema expone una API REST capaz de recibir información de un vuelo (aerolínea, origen, destino, fecha de partida y distancia) y devolver una predicción de puntualidad basada en un modelo de Data Science integrado con una API externa de Machine Learning.
 
-## 🎯 Alcance del Back-End
+## Alcance del Back-End
 
 El Back-End expone una API REST capaz de recibir información de un vuelo y devolver una predicción de puntualidad basada en un modelo de Data Science. El sistema se integra con la API externa `https://flightdelaypredictor-api.onrender.com` para realizar las predicciones utilizando modelos de Machine Learning.
 
-## 🛠️ Tecnologías y Frameworks
+## Tecnologías y Frameworks
 
 Este proyecto está construido con las siguientes tecnologías:
 
@@ -41,7 +41,7 @@ El proyecto utiliza las siguientes dependencias Maven:
         springdoc-openapi-starter-webmvc-ui
 ```
 
-## 📋 Requisitos Previos
+##  Requisitos Previos
 
 Antes de ejecutar el proyecto, asegúrate de tener instalado:
 
@@ -57,7 +57,7 @@ java -version    # Debe mostrar Java 17 o superior
 mvn -version     # Debe mostrar Maven 3.6+ o usar ./mvnw -version
 ```
 
-## 🚀 Instalación y Ejecución
+##  Instalación y Ejecución
 
 ### 1. Clonar el Repositorio
 
@@ -145,7 +145,7 @@ El proyecto incluye Swagger UI para documentación interactiva de la API. Una ve
 
 Swagger está configurado para ejecutarse solo en el ambiente local (según `application-local.properties`). Para producción, Swagger está deshabilitado por defecto.
 
-## 📁 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 src/
@@ -363,7 +363,7 @@ Content-Type: application/json
 }
 ```
 
-## 🧪 Ejecutar Tests
+##  Ejecutar Tests
 
 Para ejecutar los tests unitarios:
 
@@ -377,7 +377,7 @@ mvn test
 
 Los tests se encuentran en: `src/test/java/com/flightontime/backend/validation/`
 
-## 📝 Validaciones Implementadas
+##  Validaciones Implementadas
 
 El sistema incluye las siguientes validaciones:
 
@@ -428,7 +428,7 @@ El proyecto incluye configuraciones específicas por ambiente:
 - **application-local.properties**: Configuración para desarrollo local (incluye Swagger habilitado)
 - **application-prod.properties**: Configuración para producción (Swagger deshabilitado)
 
-## 🔍 Catálogos de Datos
+##  Catálogos de Datos
 
 El proyecto incluye catálogos en formato CSV en `src/main/resources/catalog/`:
 
@@ -444,7 +444,7 @@ Estos archivos son utilizados por el validador para verificar que los datos de e
 - **Base de Datos**: El proyecto utiliza PostgreSQL. Asegúrate de tener la base de datos configurada según el ambiente que estés usando.
 - **Swagger**: La documentación interactiva de Swagger está habilitada solo en el ambiente local por defecto.
 
-## 👥 Colaboradores
+##  Colaboradores
 
 Este proyecto fue desarrollado por un equipo internacional de desarrolladores Java Backend para el hackathon FlightOnTime.
 
