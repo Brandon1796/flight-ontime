@@ -444,9 +444,6 @@ Estos archivos son utilizados por el validador para verificar que los datos de e
 - **Base de Datos**: El proyecto utiliza PostgreSQL. Asegúrate de tener la base de datos configurada según el ambiente que estés usando.
 - **Swagger**: La documentación interactiva de Swagger está habilitada solo en el ambiente local por defecto.
 
-##  Colaboradores
-
-Este proyecto fue desarrollado por un equipo internacional de desarrolladores Java Backend para el hackathon FlightOnTime.
 
 
 
