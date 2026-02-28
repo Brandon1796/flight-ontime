@@ -1,0 +1,163 @@
+@if (showResult && predictionResult) {
+  <app-prediction-result 
+    [predictionResult]="predictionResult" 
+    [flightData]="predictionForm"
+    (newPrediction)="onNewPrediction()"></app-prediction-result>
+} @else {
+<main class="flex-1 flex flex-col items-center justify-center px-4 py-12">
+  <!-- Hero Header Section -->
+  <div class="text-center mb-12 max-w-3xl">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-bold tracking-widest uppercase mb-6">
+      <span class="material-symbols-outlined text-xs">bolt</span> Motor de Predicción de Última Generación
+    </div>
+    <h1 class="text-5xl md:text-7xl font-black leading-tight tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
+      Predice lo Impredecible
+    </h1>
+    <p class="text-white/60 text-lg md:text-xl font-light max-w-2xl mx-auto">
+        Predicción de retrasos en vuelos mediante técnicas de machine learning y análisis de datos de aviación.
+    </p>
+  </div>
+
+  <!-- Central Prediction Glass Card -->
+  <div class="w-full max-w-[1400px] glass-panel rounded-2xl p-8 md:p-10 shadow-2xl relative">
+    <div class="absolute -top-px left-10 right-10 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+    
+    <div class="flex items-center gap-2 mb-8">
+      <span class="material-symbols-outlined text-primary">analytics</span>
+      <h2 class="text-white text-lg font-bold">Centro de Predicción</h2>
+    </div>
+
+    <!-- Prediction Form -->
+    <form (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- Prediction Form Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+        <!-- Airline Selector -->
+        <div class="flex flex-col gap-2">
+          <label class="text-white/50 text-xs font-bold uppercase tracking-widest">Aerolinea</label>
+          <div class="relative group">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-lg">corporate_fare</span>
+            <select 
+              [(ngModel)]="predictionForm.aerolinea" 
+              name="aerolinea"
+              class="form-input w-full pl-10 pr-8 py-4 rounded-xl border border-white/10 bg-white/5 focus:border-primary focus:ring-1 focus:ring-primary text-white text-sm transition-all appearance-none cursor-pointer">
+              @for (code of airlineCodes; track code) {
+                <option [value]="code" class="bg-background-dark">{{ getAirlineName(code) }}</option>
+              }
+            </select>
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none text-sm">expand_more</span>
+          </div>
+        </div>
+
+        <!-- Origin City -->
+        <div class="flex flex-col gap-2">
+          <label class="text-white/50 text-xs font-bold uppercase tracking-widest">Origen</label>
+          <div class="relative group">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary/70 text-lg">location_on</span>
+            <select 
+              [(ngModel)]="predictionForm.origen" 
+              (ngModelChange)="onOriginChange()"
+              name="origen"
+              class="w-full pl-10 pr-8 py-4 rounded-xl border border-white/10 bg-white/5 focus:border-primary focus:ring-1 focus:ring-primary text-white text-sm transition-all appearance-none cursor-pointer">
+              @for (code of getAvailableOrigins(); track code) {
+                <option [value]="code" class="bg-background-dark">{{ getCityName(code) }}</option>
+              }
+            </select>
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none text-sm">expand_more</span>
+          </div>
+        </div>
+
+        <!-- Destination City -->
+        <div class="flex flex-col gap-2">
+          <label class="text-white/50 text-xs font-bold uppercase tracking-widest">Destino</label>
+          <div class="relative group">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary/70 text-lg">near_me</span>
+            <select 
+              [(ngModel)]="predictionForm.destino" 
+              (ngModelChange)="onDestinationChange()"
+              name="destino"
+              class="w-full pl-10 pr-8 py-4 rounded-xl border border-white/10 bg-white/5 focus:border-primary focus:ring-1 focus:ring-primary text-white text-sm transition-all appearance-none cursor-pointer">
+              @for (code of getAvailableDestinations(); track code) {
+                <option [value]="code" class="bg-background-dark">{{ getCityName(code) }}</option>
+              }
+            </select>
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none text-sm">expand_more</span>
+          </div>
+        </div>
+
+        <!-- Date Picker -->
+        <div class="flex flex-col gap-2">
+          <label class="text-white/50 text-xs font-bold uppercase tracking-widest">Fecha de Salida</label>
+          <div class="relative group">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary/70 text-lg">calendar_today</span>
+            <input 
+              [(ngModel)]="predictionForm.fechaPartida" 
+              (ngModelChange)="onDateChange()"
+              name="fechaPartida"
+              [min]="getCurrentDate()"
+              class="w-full pl-10 pr-10 py-4 rounded-xl border border-white/10 bg-white/5 hover:border-white/20 text-white text-sm transition-all" 
+              type="date"/>
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-white/30 text-sm pointer-events-none">calendar_today</span>
+          </div>
+        </div>
+
+        <!-- Time Picker -->
+        <div class="flex flex-col gap-2">
+          <label class="text-white/50 text-xs font-bold uppercase tracking-widest">Hora de Salida</label>
+          <div class="relative group">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary/70 text-lg">schedule</span>
+            <input 
+              [(ngModel)]="departureTime" 
+              (ngModelChange)="onTimeChange()"
+              name="departureTime"
+              [min]="getMinTime()"
+              class="w-full pl-10 pr-8 py-4 rounded-xl border border-white/10 bg-white/5 hover:border-white/20 text-white text-sm transition-all" 
+              type="time"/>
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none text-sm">expand_more</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="mt-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-6">
+          <div class="flex -space-x-3">
+            <div class="size-8 rounded-full border-2 border-background-dark bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDohtAEbaIBKONE53TYSkKZmoi3WKSJJbX5nZz9CmLA-KhobYsFApckOwUJQpRijDcsSAktoqkCXUoZJN_Z2VCqKC-aeicjLrL7IasHI5N9dRBP8zU2p6Owh4W-I6o0UNjJU96pwGZve_8CL_vDwnTK2kmwZAvA8IJUJ9XRSGtd46QoPG5KYzJpru2hF-R9s9Ebc51mhu5gVQVbCl3DVkBvE0Obw7A048z-iSl41uVieve_Si6AMRaiQy9yvVmLSYTi35Rvlhaii4Y");'></div>
+            <div class="size-8 rounded-full border-2 border-background-dark bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuClMhRWAOIwC3mIQAoKn-TDCX8L0grRlZbAlsXYYbD1pyvn_uX4RrUNruGd1WNcaakukzjcCrO-uuexdKm5BrVHnzCF5f-8Zgm5dP1rhHSJCi2h_wsMqN18-XNTdhIkHSsv4FQ9KbkVHme-St32hxLCAnxmJFjWENt2VP1slvcRMeZXuv23AEKhe-hvj7BRp1CxosEL_xolYSF4sGy1jKlZTN0vwNhHsFeq6Gr7hOHCbJ-eZOwpA79y06UM8orWqKPn137Zt-ThT2E");'></div>
+            <div class="size-8 rounded-full border-2 border-background-dark bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNjq1LJC1iHpqucj714647c2n12tELZ1WuyK24UziIaIxzb3cwoqAE1WyFOU1lo8A7yLi31d762ttYHJel3V5vNwiiyQcatNpawZEJ4aTVv1bWXJXIK84DF1Rej3XJpdknJpjawLkor4Yb3lNvyw541PS5aJVEcS0S0yk8DuMaH7R5rRDY2rPEF5cUj3FwAKn9vq2YtNsWj0MzSFc_WAtzvYW2WgtqnW4bbKg5Oxr0NY13Upgs4fBL-saw9FpeX7YBKFrlXdbUz8Q");'></div>
+          </div>
+          <p class="text-xs text-white/40">Únete a <span class="text-white font-bold">12k+ viajeros</span> usando vanguard flight predictor</p>
+        </div>
+        <button 
+          type="submit"
+          [disabled]="isPredicting"
+          class="w-full md:w-auto px-12 py-4 bg-primary rounded-xl text-white font-bold text-lg glow-button flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed">
+          <span>{{ isPredicting ? 'Prediciendo...' : 'Predecir Estado' }}</span>
+          @if (!isPredicting) {
+            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Trust Badges / Stats -->
+  <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
+    <div class="flex flex-col items-center">
+      <span class="text-2xl font-bold text-white mb-1">98.4%</span>
+      <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">Precisión</span>
+    </div>
+    <div class="flex flex-col items-center">
+      <span class="text-2xl font-bold text-white mb-1">2ms</span>
+      <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">Inferencia</span>
+    </div>
+    <div class="flex flex-col items-center">
+      <span class="text-2xl font-bold text-white mb-1">24/7</span>
+      <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">Monitor Global</span>
+    </div>
+    <div class="flex flex-col items-center">
+      <span class="text-2xl font-bold text-white mb-1">5M+</span>
+      <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">Puntos Escaneados</span>
+    </div>
+  </div>
+</main>
+}

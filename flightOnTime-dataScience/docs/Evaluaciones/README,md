@@ -1,0 +1,27 @@
+# Evaluaciones de Modelos
+
+Esta carpeta contiene los notebooks utilizados para evaluar y comparar los diferentes modelos predictivos del proyecto **nocountry-data-science**. El objetivo principal de estos notebooks es analizar el desempeño de los modelos y ayudar a decidir cuál utilizar para la implementación final.
+
+## Contenido
+
+- **Evaluación_de_modelos.iynb**  
+  Notebook principal donde se comparan múltiples modelos usando métricas clave como recall, precision, F1-score y ROC-AUC.
+
+- **Evaluación_modelos_jesus.iynb**  
+  Evaluación adicional hecha por otro miembro del equipo para verificar la consistencia de los resultados y explorar otras métricas.
+
+- **modelo-flighOnTie.iynb**  
+  Evaluación específica del modelo `flighOnTie`, incluyendo análisis de predicciones, matriz de confusión y curvas ROC.
+
+## Objetivo
+
+Los notebooks en esta carpeta permiten:  
+1. Comparar modelos de manera objetiva según métricas de rendimiento.  
+2. Identificar posibles mejoras o ajustes en los modelos antes de su implementación.  
+3. Documentar el proceso de selección del modelo final para el proyecto.
+
+## Nota
+
+Para reproducir estas evaluaciones, asegúrate de tener acceso a los datasets limpios que se encuentran en `../data/archivo_limpio.csv` y `../data/dataset.csv`.
+
+

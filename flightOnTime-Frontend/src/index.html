@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8">
+  <title>Flight Predictor</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind Config -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#135bec",
+            "background-light": "#f6f6f8",
+            "background-dark": "#101622",
+          },
+          fontFamily: {
+            "display": ["Space Grotesk", "sans-serif"]
+          },
+          borderRadius: { 
+            "DEFAULT": "0.25rem", 
+            "lg": "0.5rem", 
+            "xl": "0.75rem", 
+            "full": "9999px" 
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Custom Tailwind Styles -->
+  <style type="text/tailwindcss">
+    .glass-panel {
+      background: rgba(16, 22, 34, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1)
+    }
+    
+    .glow-button {
+      box-shadow: 0 0 20px rgba(19, 91, 236, 0.4);
+      transition: all 0.3s ease
+    }
+    
+    .glow-button:hover {
+      box-shadow: 0 0 30px rgba(19, 91, 236, 0.6);
+      transform: translateY(-1px)
+    }
+    
+    .vanguard-bg {
+      background-image: linear-gradient(rgba(16, 22, 34, 0.8), rgba(16, 22, 34, 0.8)), url(https://lh3.googleusercontent.com/aida-public/AB6AXuCPej76QiKFeGgXhgJIPbB6YcTrV1d3vRPyG9EkX3k1NkobxDFzi4f-QorDW6v5vITrH3XQj_sL3MAy9xDxRjbceqfBbs3NupHCyarV2IxK8GIlplOiEnj0Pq2p27aUfwVA3ObgB32Wnkdv3U4aZP9oDOD2ipN3aXnWZm83589KjVXg3Yot1dR8kFwItfrQ1O34Aarj-qSkyCzLKGg57VmLvk-V_zjgDIYp2TNq3QAUlD9p-wD6wVyQ8rlbJjXbxfMseZEDP9iTr0I);
+      background-size: cover;
+      background-position: center
+    }
+    
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) opacity(0);
+      position: absolute;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white">
+  <div class="fixed inset-0 z-[-1] vanguard-bg" data-alt="High-tech visualization of global air traffic paths at night"></div>
+  <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-violet-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+  
+  <app-root></app-root>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<main class="flex-1 flex flex-col px-4 py-8">
+  <div class="w-full max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="mb-12 flex items-center justify-between">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter">
+          Historial
+        </h1>
+        <p class="text-white/60 text-base font-light">Revisa todas tus predicciones de vuelos anteriores</p>
+      </div>
+      <button 
+        (click)="goBack()"
+        class="flex items-center gap-2 text-white/40 hover:text-white transition-colors group">
+        <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        <span class="text-sm font-bold uppercase tracking-widest">Atrás</span>
+      </button>
+    </div>
+
+    <!-- Content -->
+    @if (isLoading) {
+      <div class="text-center py-20">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        <p class="text-white/60 mt-4">Cargando historial...</p>
+      </div>
+    } @else if (history.length === 0) {
+      <div class="text-center py-20">
+        <span class="material-symbols-outlined text-6xl text-white/30 mb-4">history</span>
+        <p class="text-white/60 text-lg mb-2">No se han realizado consultas aún</p>
+        <p class="text-white/40 text-sm">Realiza tu primera predicción para ver el historial aquí</p>
+      </div>
+    } @else {
+      <!-- Table -->
+      <div class="glass-panel rounded-3xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-white/10">
+                <th class="px-6 py-4 text-left text-[11px] font-bold uppercase tracking-widest text-white/50">Aerolínea</th>
+                <th class="px-6 py-4 text-left text-[11px] font-bold uppercase tracking-widest text-white/50">Origen</th>
+                <th class="px-6 py-4 text-left text-[11px] font-bold uppercase tracking-widest text-white/50">Destino</th>
+                <th class="px-6 py-4 text-left text-[11px] font-bold uppercase tracking-widest text-white/50">Fecha de Salida</th>
+                <th class="px-6 py-4 text-left text-[11px] font-bold uppercase tracking-widest text-white/50">Distancia</th>
+                <th class="px-6 py-4 text-left text-[11px] font-bold uppercase tracking-widest text-white/50">Predicción</th>
+                <th class="px-6 py-4 text-left text-[11px] font-bold uppercase tracking-widest text-white/50">Probabilidad</th>
+                <th class="px-6 py-4 text-left text-[11px] font-bold uppercase tracking-widest text-white/50">Fecha de Consulta</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of history; track item.id) {
+                <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors cursor-pointer group">
+                  <td class="px-6 py-6 text-sm font-semibold text-white group-hover:text-primary transition-colors">
+                    {{ getAirlineName(item.aerolinea) }}
+                  </td>
+                  <td class="px-6 py-6 text-sm text-white/80">
+                    {{ getCityName(item.origen) }}
+                  </td>
+                  <td class="px-6 py-6 text-sm text-white/80">
+                    {{ getCityName(item.destino) }}
+                  </td>
+                  <td class="px-6 py-6 text-sm text-white/60">
+                    {{ formatDate(item.fechaPartida) }}
+                  </td>
+                  <td class="px-6 py-6 text-sm text-white/60">
+                    {{ item.distanciaKm | number }} km
+                  </td>
+                  <td class="px-6 py-6">
+                    <span [ngClass]="'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border ' + getPrevisionBadgeClass(item.prevision)">
+                      <span class="material-symbols-outlined text-sm">{{ getPrevisionIcon(item.prevision) }}</span>
+                      {{ item.prevision }}
+                    </span>
+                  </td>
+                  <td class="px-6 py-6 text-sm font-bold text-white">
+                    {{ formatProbability(item.probabilidad) }}
+                  </td>
+                  <td class="px-6 py-6 text-sm text-white/60">
+                    {{ formatDate(item.createdAt) }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Footer Stats -->
+      <div class="mt-12 flex gap-8 md:gap-16 opacity-40 justify-center">
+        <div class="flex flex-col items-center">
+          <span class="text-2xl font-black text-white/80">{{ history.length }}</span>
+          <span class="text-xs font-bold uppercase tracking-tighter text-white/60 mt-1">Consultas Realizadas</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <span class="text-2xl font-black text-emerald-400">{{ (history | slice:0:4).length }}</span>
+          <span class="text-xs font-bold uppercase tracking-tighter text-white/60 mt-1">A Tiempo</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <span class="text-2xl font-black text-red-500">{{ (history | slice:4).length }}</span>
+          <span class="text-xs font-bold uppercase tracking-tighter text-white/60 mt-1">Retrasado</span>
+        </div>
+      </div>
+    }
+  </div>
+</main>

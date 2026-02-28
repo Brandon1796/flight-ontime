@@ -1,0 +1,50 @@
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+  <!-- Header -->
+  <header class="flex items-center justify-between px-10 py-6 max-w-[1400px] mx-auto w-full">
+    <div class="flex items-center gap-3">
+      <div class="text-primary size-8 flex items-center justify-center">
+        <span class="material-symbols-outlined text-4xl">flight_takeoff</span>
+      </div>
+      <h2 class="text-white text-xl font-bold tracking-tight uppercase">Vanguard<span class="text-primary">Flight</span></h2>
+    </div>
+    <div class="flex items-center gap-12">
+      <nav class="hidden md:flex items-center gap-8">
+        <a routerLink="/" class="text-white/70 hover:text-white text-sm font-medium transition-colors" href="#">Inicio</a>
+        <a routerLink="/global-stats" class="text-white/70 hover:text-white text-sm font-medium transition-colors" href="#">Problema & Solución</a>
+        <a routerLink="/history" class="text-white/70 hover:text-white text-sm font-medium transition-colors" href="#">Historial</a>
+        <a routerLink="/api-documentation" class="text-white/70 hover:text-white text-sm font-medium transition-colors" href="#">Documentación API</a>
+        <a routerLink="/company" class="text-white/70 hover:text-white text-sm font-medium transition-colors" href="#">Empresa</a>
+      </nav>
+      <div class="flex items-center gap-4">
+        <div class="size-10 rounded-full border border-primary/50 p-0.5">
+          <div class="size-full rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDisPf_o6KhSBdUdr7udlX_nCWzAPoQ--HB_IS_82pjZj-plxZqN6D0EQ-t_PNjIcJKDq716yo1F3KccU-tOFvJV2rALIxWuROGjTSjNlMakW_getYw8bmJt-Ol2HB7T4wA4aNSV9d9UhozA2UZvqMxb3yhjSzuq7i4ddtWvBFTmpmCnblvuhH8GPYDaYFg97NFhR1QqETENLiwlIVRNyYh2mfyktLS2L8yIH8LIWGSzAQ_P1uoB8QWr_d1sqnCPq-oU8xO4oPjVeM");'></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <router-outlet></router-outlet>
+
+  <!-- Footer -->
+  <footer class="p-8 border-t border-white/5 bg-background-dark/50 backdrop-blur-md">
+    <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-4 text-xs text-white/40">
+        <span>© 2024 Predictor de Vuelos Vanguard</span>
+        <span class="w-1 h-1 bg-white/20 rounded-full"></span>
+        <a class="hover:text-white transition-colors" href="#">Política de Privacidad</a>
+        <span class="w-1 h-1 bg-white/20 rounded-full"></span>
+        <a class="hover:text-white transition-colors" href="#">Términos de Servicio</a>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest">Red Operacional</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

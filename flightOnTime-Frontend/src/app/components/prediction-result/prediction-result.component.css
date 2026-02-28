@@ -1,0 +1,21 @@
+.emerald-glow {
+  filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.5));
+}
+
+.neural-ring {
+  background: conic-gradient(from 0deg, #10b981 0%, #10b981 var(--percentage, 85%), transparent var(--percentage, 85%));
+}
+
+.glow-warning {
+  box-shadow: 0 0 30px rgba(255, 62, 62, 0.2);
+}
+
+@keyframes pulse-warning {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-warning-pulse {
+  animation: pulse-warning 2s infinite ease-in-out;
+}

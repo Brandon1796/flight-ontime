@@ -1,0 +1,231 @@
+@if (!isDelayed()) {
+  <!-- Vista para A TIEMPO -->
+  <main class="flex-1 flex flex-col items-center justify-center px-4 py-12">
+    <div class="w-full max-w-4xl mb-8">
+      <button 
+        (click)="onNewPrediction()"
+        class="flex items-center gap-2 text-white/40 hover:text-white transition-colors group">
+        <span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+        <span class="text-sm font-bold uppercase tracking-widest">Atrás</span>
+      </button>
+    </div>
+
+    <div class="w-full max-w-4xl glass-panel rounded-3xl overflow-hidden shadow-2xl relative">
+      <div class="absolute -top-px left-10 right-10 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+      <div class="flex flex-col md:flex-row">
+        <!-- Left Section - Gauge -->
+        <div class="p-8 md:p-12 md:w-1/2 border-b md:border-b-0 md:border-r border-white/10 flex flex-col items-center text-center">
+          <div class="relative size-48 mb-8">
+            <svg class="size-full -rotate-90" viewBox="0 0 100 100">
+              <circle class="text-white/5" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-width="6"></circle>
+              <circle 
+                class="text-emerald-400" 
+                cx="50" 
+                cy="50" 
+                fill="transparent" 
+                r="45" 
+                stroke="currentColor" 
+                stroke-linecap="round" 
+                stroke-width="6"
+                [style.stroke-dasharray]="'283'"
+                [style.stroke-dashoffset]="getGaugeOffset()"
+                style="transition: stroke-dashoffset 1s ease-out;">
+              </circle>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-5xl font-black text-white">{{ getProbabilityPercentage() }}%</span>
+              <span class="text-[10px] font-bold text-white/40 uppercase tracking-widest mt-2">Probability</span>
+            </div>
+          </div>
+            <div class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 mb-4">
+            <span class="material-symbols-outlined text-lg">verified_user</span>
+            <span class="text-xs font-black uppercase tracking-widest">Riesgo Bajo</span>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-black text-white mb-2 tracking-tighter uppercase">
+            A TIEMPO
+          </h1>
+          <p class="text-white/60 text-sm font-light">Estado Predicho del Vuelo</p>
+        </div>
+
+        <!-- Right Section - Flight Details -->
+        <div class="p-8 md:p-12 md:w-1/2 bg-white/[0.02]">
+          <div class="space-y-8">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-1">Detalles del Vuelo</h3>
+                <p class="text-xl font-bold text-white uppercase">{{ flightData.origen }} → {{ flightData.destino }}</p>
+                <p class="text-sm text-white/60">Vuelo #VG{{ flightData.aerolinea }}402 • {{ formatDate(flightData.fechaPartida) }}</p>
+              </div>
+              <div class="text-right">
+                <div class="size-10 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center mb-1">
+                  <span class="material-symbols-outlined text-primary">corporate_fare</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-white/5 border border-white/10 relative overflow-hidden">
+              <div class="absolute top-0 right-0 p-3 opacity-20">
+                <span class="material-symbols-outlined text-4xl">psychology</span>
+              </div>
+              <h4 class="text-primary text-[10px] font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                Información de IA
+              </h4>
+              <p class="text-white/90 text-sm leading-relaxed font-medium italic">
+                "Condiciones óptimas de vuelo detectadas. Cielos despejados en origen y destino con patrones de viento favorables indican llegada puntual o anticipada."
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                <span class="text-[10px] text-white/30 uppercase block mb-1">Nivel de Confianza</span>
+                <span class="text-lg font-bold text-emerald-400">{{ getProbabilityPercentage() }}%</span>
+              </div>
+              <div class="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                <span class="text-[10px] text-white/30 uppercase block mb-1">Est. Salida</span>
+                <span class="text-lg font-bold text-white">14:25 UTC</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-3 pt-4">
+              <button class="w-full py-4 bg-primary hover:bg-primary/90 rounded-xl text-white font-bold text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 group shadow-lg shadow-primary/20">
+                <span class="material-symbols-outlined text-lg">notifications_active</span>
+                Notificarme al Cambiar de Estado
+              </button>
+              <button class="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white/70 font-bold text-sm uppercase tracking-widest transition-all">
+                Exportar Reporte de Predicción
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 flex gap-8 md:gap-16 opacity-40">
+      <div class="flex flex-col items-center">
+        <span class="text-xs font-bold uppercase tracking-tighter">Real-time Data</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-xs font-bold uppercase tracking-tighter">Satellite Uplink</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-xs font-bold uppercase tracking-tighter">ML V4.2</span>
+      </div>
+    </div>
+  </main>
+} @else {
+  <!-- Vista para RETRASADO -->
+  <main class="flex-1 flex flex-col items-center justify-center px-4 py-8">
+    <div class="w-full max-w-4xl mb-8">
+      <button 
+        (click)="onNewPrediction()"
+        class="flex items-center gap-2 text-white/40 hover:text-white transition-colors group">
+        <span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+        <span class="text-sm font-bold uppercase tracking-widest">Back to Search</span>
+      </button>
+    </div>
+
+    <div class="w-full max-w-4xl glass-panel rounded-3xl overflow-hidden shadow-2xl relative glow-warning">
+      <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+      <div class="flex flex-col md:flex-row">
+        <!-- Left Section - Gauge -->
+        <div class="p-8 md:p-12 md:w-1/2 border-b md:border-b-0 md:border-r border-white/10 flex flex-col items-center text-center">
+          <div class="relative size-48 mb-8">
+            <svg class="size-full -rotate-90" viewBox="0 0 100 100">
+              <circle class="text-white/5" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-width="6"></circle>
+              <circle 
+                class="text-red-500" 
+                cx="50" 
+                cy="50" 
+                fill="transparent" 
+                r="45" 
+                stroke="currentColor" 
+                stroke-linecap="round" 
+                stroke-width="6"
+                [style.stroke-dasharray]="'283'"
+                [style.stroke-dashoffset]="getGaugeOffset()"
+                style="transition: stroke-dashoffset 1s ease-out;">
+              </circle>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-5xl font-black text-white">{{ getProbabilityPercentage() }}%</span>
+              <span class="text-[10px] font-bold text-white/40 uppercase tracking-widest mt-2">Probability</span>
+            </div>
+          </div>
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-500 mb-4 animate-pulse">
+            <span class="material-symbols-outlined text-lg">warning</span>
+            <span class="text-xs font-black uppercase tracking-widest">Riesgo Alto de Retraso</span>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-black text-red-500 mb-2 tracking-tighter uppercase">
+            RETRASADO
+          </h1>
+          <p class="text-white/60 text-sm font-light">Estado Predicho del Vuelo</p>
+        </div>
+
+        <!-- Right Section - Flight Details -->
+        <div class="p-8 md:p-12 md:w-1/2 bg-white/[0.02]">
+          <div class="space-y-8">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-1">Flight Details</h3>
+                <p class="text-xl font-bold text-white uppercase">{{ flightData.origen }} → {{ flightData.destino }}</p>
+                <p class="text-sm text-white/60">Flight #VG{{ flightData.aerolinea }}402 • {{ formatDate(flightData.fechaPartida) }}</p>
+              </div>
+              <div class="text-right">
+                <div class="size-10 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center mb-1">
+                  <span class="material-symbols-outlined text-primary">corporate_fare</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-white/5 border border-white/10 relative overflow-hidden">
+              <div class="absolute top-0 right-0 p-3 opacity-20">
+                <span class="material-symbols-outlined text-4xl">psychology</span>
+              </div>
+              <h4 class="text-primary text-[10px] font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                Información de IA
+              </h4>
+              <p class="text-white/90 text-sm leading-relaxed font-medium italic">
+                "{{ 'Análisis neural detecta congestión severa en aeropuerto de destino. El tráfico terrestre y sistemas meteorológicos en ' + getCityName(flightData.destino) + ' están causando un retraso en cascada de aproximadamente 45-60 minutos.' }}"
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                <span class="text-[10px] text-white/30 uppercase block mb-1">Retraso Estimado</span>
+                <span class="text-lg font-bold text-amber-400">+52 min</span>
+              </div>
+              <div class="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                <span class="text-[10px] text-white/30 uppercase block mb-1">Confianza</span>
+                <span class="text-lg font-bold text-white">{{ getProbabilityPercentage() }}%</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-3 pt-4">
+              <button class="w-full py-4 bg-primary hover:bg-primary/90 rounded-xl text-white font-bold text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 group shadow-lg shadow-primary/20">
+                <span class="material-symbols-outlined text-lg">notifications_active</span>
+                Notificarme al Cambiar de Estado
+              </button>
+              <button class="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white/70 font-bold text-sm uppercase tracking-widest transition-all">
+                Exportar Reporte de Predicción
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 flex gap-8 md:gap-16 opacity-40">
+      <div class="flex flex-col items-center">
+        <span class="text-xs font-bold uppercase tracking-tighter">Real-time Data</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-xs font-bold uppercase tracking-tighter">Satellite Uplink</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-xs font-bold uppercase tracking-tighter">ML V4.2</span>
+      </div>
+    </div>
+  </main>
+}

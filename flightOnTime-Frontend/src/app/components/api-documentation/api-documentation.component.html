@@ -1,0 +1,160 @@
+<div class="min-h-screen px-4 py-12">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-6xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
+        Documentación de API
+      </h1>
+      <p class="text-white/60 text-lg">Guía completa para integrar el sistema de predicción de vuelos</p>
+    </div>
+
+    <div class="space-y-8">
+      <!-- Overview Section -->
+      <div class="glass-panel rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-white mb-4">Base URL</h2>
+        <code class="block px-4 py-3 bg-white/5 rounded-lg text-primary text-sm">{{ apiBaseUrl }}</code>
+      </div>
+
+      <!-- Predict Flight Endpoint -->
+      <div class="glass-panel rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-white mb-4">POST /predict</h2>
+        <p class="text-white/70 mb-4">Realiza una predicción de vuelo basada en los parámetros proporcionados. Retorna la previsión del vuelo y la probabilidad asociada.</p>
+        
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Request Body</h3>
+        <pre class="bg-white/5 rounded-lg p-4 overflow-x-auto text-sm text-white/90"><code>{{
+`{
+  "aerolinea": "string",           // Código IATA (ej: "AA", "IB", "LA")
+  "origen": "string",              // Código IATA del aeropuerto (ej: "MAD", "GRU")
+  "destino": "string",             // Código IATA del aeropuerto (ej: "MIA", "EZE")
+  "fecha_Partida": "string",       // Formato: "yyyy-MM-dd HH:mm:ss" (ej: "2024-01-15 14:30:00")
+  "distancia_km": number           // Distancia en kilómetros (máximo 7 dígitos enteros, 2 decimales)
+}`}}</code></pre>
+
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Ejemplo de Request</h3>
+        <pre class="bg-white/5 rounded-lg p-4 overflow-x-auto text-sm text-white/90"><code>{{
+`{
+  "aerolinea": "AA",
+  "origen": "SFO",
+  "destino": "LAX",
+  "fecha_Partida": "2024-01-15 14:30:00",
+  "distancia_km": 559.23
+}`}}</code></pre>
+
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Response (200 OK)</h3>
+        <pre class="bg-white/5 rounded-lg p-4 overflow-x-auto text-sm text-white/90"><code>{{
+`{
+  "prevision": "string",           // "A TIEMPO" o "RETRASADO"
+  "probabilidad": number           // Valor entre 0 y 1 (ej: 0.85 = 85%)
+}`}}</code></pre>
+
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Ejemplo de Response</h3>
+        <pre class="bg-white/5 rounded-lg p-4 overflow-x-auto text-sm text-white/90"><code>{{
+`{
+  "prevision": "A TIEMPO",
+  "probabilidad": 0.85
+}`}}</code></pre>
+      </div>
+
+      <!-- Get History Endpoint -->
+      <div class="glass-panel rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-white mb-4">GET /predict/history</h2>
+        <p class="text-white/70 mb-4">Obtiene el historial completo de todas las predicciones realizadas, ordenado por fecha de creación descendente (más recientes primero).</p>
+        
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Parameters</h3>
+        <p class="text-white/70 mb-4">No requiere parámetros.</p>
+        
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Response (200 OK)</h3>
+        <pre class="bg-white/5 rounded-lg p-4 overflow-x-auto text-sm text-white/90"><code>{{
+`[
+  {
+    "id": number,                  // ID único de la predicción
+    "aerolinea": "string",          // Código IATA de la aerolínea
+    "origen": "string",             // Código IATA del aeropuerto de origen
+    "destino": "string",            // Código IATA del aeropuerto de destino
+    "fechaPartida": "string",       // Formato ISO 8601 (ej: "2024-01-15T14:30:00")
+    "distanciaKm": number,         // Distancia en kilómetros
+    "prevision": "string",          // "A TIEMPO" o "RETRASADO"
+    "probabilidad": number,         // Valor entre 0 y 1
+    "createdAt": "string",          // Fecha de creación (ISO 8601)
+    "updatedAt": "string"           // Fecha de actualización (ISO 8601)
+  }
+]`}}</code></pre>
+
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Ejemplo de Response</h3>
+        <pre class="bg-white/5 rounded-lg p-4 overflow-x-auto text-sm text-white/90"><code>{{
+`[
+  {
+    "id": 1,
+    "aerolinea": "AA",
+    "origen": "SFO",
+    "destino": "LAX",
+    "fechaPartida": "2024-01-15T14:30:00",
+    "distanciaKm": 559,
+    "prevision": "A TIEMPO",
+    "probabilidad": 0.85,
+    "createdAt": "2024-01-15T10:00:00",
+    "updatedAt": "2024-01-15T10:00:00"
+  },
+  {
+    "id": 2,
+    "aerolinea": "UA",
+    "origen": "JFK",
+    "destino": "LAX",
+    "fechaPartida": "2024-01-16T08:00:00",
+    "distanciaKm": 2475,
+    "prevision": "RETRASADO",
+    "probabilidad": 0.72,
+    "createdAt": "2024-01-15T09:30:00",
+    "updatedAt": "2024-01-15T09:30:00"
+  }
+]`}}</code></pre>
+
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Manejo de Array Vacío</h3>
+        <p class="text-white/70 mb-4">Si no se han realizado consultas hasta el momento, el endpoint retorna un array vacío <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">[]</code>.</p>
+      </div>
+
+      <!-- Headers -->
+      <div class="glass-panel rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-white mb-4">Headers</h2>
+        <p class="text-white/70 mb-4">Todas las solicitudes deben incluir los siguientes headers:</p>
+        <pre class="bg-white/5 rounded-lg p-4 overflow-x-auto text-sm text-white/90"><code>{{
+`Content-Type: application/json
+Accept: application/json`}}</code></pre>
+      </div>
+
+      <!-- Códigos IATA -->
+      <div class="glass-panel rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-white mb-4">Códigos IATA</h2>
+        <p class="text-white/70 mb-4 mb-4">El sistema utiliza códigos IATA para aerolíneas y aeropuertos:</p>
+        
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Aerolíneas Soportadas</h3>
+        <ul class="text-white/70 space-y-2 mb-6">
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">IB</code> - Iberia</li>
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">G3</code> - Gol Transportes Aéreos</li>
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">AA</code> - American Airlines</li>
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">LA</code> - LATAM Airlines</li>
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">AR</code> - Aerolíneas Argentinas</li>
+        </ul>
+
+        <h3 class="text-lg font-bold text-white mt-6 mb-3">Aeropuertos Soportados</h3>
+        <ul class="text-white/70 space-y-2">
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">MAD</code> - Madrid</li>
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">GRU</code> - São Paulo - Guarulhos</li>
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">AEP</code> - Buenos Aires - Aeroparque Jorge Newbery</li>
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">MIA</code> - Miami</li>
+          <li>• <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">EZE</code> - Buenos Aires - Ezeiza</li>
+        </ul>
+      </div>
+
+      <!-- Notas Importantes -->
+      <div class="glass-panel rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-white mb-4">Notas Importantes</h2>
+        <ul class="text-white/70 space-y-3">
+          <li>• <strong class="text-white">Formato de fecha:</strong> El campo <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">fecha_Partida</code> debe estar en formato <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">yyyy-MM-dd HH:mm:ss</code></li>
+          <li>• <strong class="text-white">Distancia:</strong> El campo <code class="px-2 py-1 bg-white/5 rounded text-primary text-sm">distancia_km</code> debe tener máximo 7 dígitos enteros y 2 decimales</li>
+          <li>• <strong class="text-white">Códigos:</strong> Todos los códigos IATA deben estar en mayúsculas</li>
+          <li>• <strong class="text-white">CORS:</strong> El backend debe estar configurado para aceptar peticiones desde el frontend</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
