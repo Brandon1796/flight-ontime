@@ -23,7 +23,7 @@ Este proyecto está construido con las siguientes tecnologías:
 - **Maven** - Gestor de dependencias y construcción del proyecto
 - **SpringDoc OpenAPI (Swagger)** - Para documentación interactiva de la API
 
-## 📦 Dependencias Principales
+##  Dependencias Principales
 
 El proyecto utiliza las siguientes dependencias Maven:
 
@@ -437,7 +437,7 @@ El proyecto incluye catálogos en formato CSV en `src/main/resources/catalog/`:
 
 Estos archivos son utilizados por el validador para verificar que los datos de entrada sean correctos.
 
-## 📚 Notas Adicionales
+##  Notas Adicionales
 
 - **Lombok**: Asegúrate de tener habilitado el procesamiento de anotaciones en tu IDE para que Lombok funcione correctamente.
 - **Puerto**: Por defecto la aplicación corre en el puerto 8080. Puedes cambiarlo en `application.properties` con `server.port=8081`
@@ -448,34 +448,6 @@ Estos archivos son utilizados por el validador para verificar que los datos de e
 
 Este proyecto fue desarrollado por un equipo internacional de desarrolladores Java Backend para el hackathon FlightOnTime.
 
-### 🌎 Equipo de Desarrollo
 
-#### **Adrián Zúñiga** 🇨🇷 Costa Rica
-- **GitHub:** [@adrianpyth](https://github.com/adrianpyth)
-- **Contribuciones:** Validaciones, pruebas unitarias, documentacion  y configuración de Swagger.
-
-#### **Ricardo Nacif Paez Henaine** 🇲🇽 México
-- **GitHub:** [@RickyRick-s](https://github.com/RickyRick-s)
-- **Contribuciones:** Validaciones, pruebas unitarias, creación de la estructura base del proyecto, y persistencia de datos.
-
-#### **Ariel Caferri** 🇦🇷 Argentina
-- **GitHub:** [@Ariel-84](https://github.com/Ariel-84)
-- **Contribuciones:** Validaciones, tests unitarios, definicion del modelo y documentacion .
-
-#### **Natalia Muñoz** 🇨🇴 Colombia
-- **GitHub:** [@Natams7526](https://github.com/Natams7526)
-- **Contribuciones:** Integración del proyecto, liderazgo del equipo backend, validaciones, pruebas unitarias, implementación del modelo de Machine Learning y definición de la estructura del proyecto backend.
-
-#### **Sathiel** 🧪 Testing & DevOps
-- **GitHub:** [@Sathiel13](https://github.com/Sathiel13)
-- **Contribuciones:** Testing del proyecto y orquestación del proyecto en GitHub.
-
----
-
-**Todos los colaboradores son desarrolladores Java Backend especializados en Spring Boot y tecnologías relacionadas.**
-
-Proyecto desarrollado para el hackathon FlightOnTime.
-
-## 📄 Licencia
 
 [Especificar licencia si aplica]
