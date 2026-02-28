@@ -14,6 +14,7 @@ de variables operativas y temporales.
 FlightOnTime – Data Science
 Descripción del Proyecto
 
+```
 nocountry-data-science
 ├── QA_requirements.md
 ├── README.md
@@ -26,11 +27,11 @@ nocountry-data-science
 │   ├── Evaluación_modelos_jesus.iynb
 │   ├── modelo-flighOnTie.iynb
 │   ├── limpieza_datos-flighOnTie.iynb
-
+```
 
 FlightOnTime – Data Science & ML es el componente encargado del análisis de datos, feature engineering, entrenamiento, evaluación y despliegue del modelo de Machine Learning utilizado para predecir si un vuelo llegará a tiempo o con retraso.
 
-
+```
 flight-delay-ml-api/
 ├── main.py
 ├── requirements.txt
@@ -42,7 +43,7 @@ flight-delay-ml-api/
 │   ├── origen_delay_rate.pkl
 │   ├── destino_delay_rate.pkl
 │   └── global_delay_rate.pkl
-
+```
 
 
 Este proyecto expone una API de Machine Learning que recibe información estructurada de un vuelo y devuelve una predicción probabilística, la cual es consumida por el Backend en Java (Spring Boot) del sistema FlightOnTime.
@@ -241,6 +242,7 @@ La API de Machine Learning (FastAPI) carga el modelo y expone el endpoint /predi
 El backend Java consume la API, valida los datos y expone el servicio final.
 
 El usuario final recibe la predicción junto con su probabilidad.
+```
 ┌───────────────────────────────┐
 │        Dataset Original       │
 │        (dataset.csv)          │
@@ -312,7 +314,7 @@ El usuario final recibe la predicción junto con su probabilidad.
 │  - Solicitud de predicción   │
 │  - Resultado y probabilidad  │
 └───────────────────────────────┘
-
+```
 
 Descripción de Componentes
 
@@ -357,55 +359,6 @@ Persistencia
 
 Exposición pública del endpoint final
 
-signación de Responsabilidades
-
-Brandon Calderón – Data Science Lead
-
-Coordinación general del proyecto de Data Science
-
-Definición de métricas y criterios de evaluación
-
-Feature engineering
-
-Selección del modelo final
-
-Preparación del modelo para producción
-
-
-Jesús Sanchez Farro – Exploración y Modelos Base
-
-Análisis exploratorio de datos (EDA)
-
-Visualización de variables
-
-Entrenamiento de modelos baseline
-
-Evaluación inicial de métricas
-
-
-Leonard Espejo Mojica – Limpieza y Preprocesamiento
-
-Limpieza del dataset original
-
-Tratamiento de valores faltantes
-
-Transformación de variables
-
-Generación del dataset limpio
-
-
-Damian Yaccuzzi  – Evaluación y Validación
-
-Evaluación comparativa de modelos
-
-Análisis de métricas (precision, recall, F1-score)
-
-Confusion matrix
-
-Validación de resultados
-
-
-Luis Rello Mayor – Documentación y QA
 
 Documentación técnica del proceso
 
